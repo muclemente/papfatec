@@ -1,0 +1,75 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+
+public class Service {
+    
+	String connectionURL = "jdbc:mysql://localhost:3306/PAP";
+    Connection connection = null;
+	Statement statement = null;
+	ResultSet rs = null;
+	
+	public String insertUser(String PrimeiroNome, String UltimoNome, String Email, String Senha, String Telefone) {
+       int rset = 0;
+       String resultado = null;
+       try {
+			    Class.forName("com.mysql.jdbc.Driver").newInstance();
+		        connection = DriverManager.getConnection(connectionURL, "root", "");
+		        statement = connection.createStatement();
+		        rset = statement.executeUpdate("INSERT INTO usuario(PrimeiroNome, UltimoNome, Email, Saldo, Senha, Telefone) VALUES('" + PrimeiroNome +"', '" + UltimoNome + "', '" + Email + "', 0, '" + Senha + "', '" + Telefone + "')");
+				connection.close();
+				resultado = "sucesso";
+		   } catch (Exception e) {
+			       resultado = e.toString();
+		   }
+		   return resultado;
+	} 
+	
+	public String[] login(String email, String senha) {
+	    String connectionURL = "jdbc:mysql://localhost:3306/PAP";
+	    Connection connection = null;
+		Statement statement = null;
+		ResultSet rs = null;
+		
+	    String resultado[] = new String[6];
+	    try {
+			    Class.forName("com.mysql.jdbc.Driver").newInstance();
+		        connection = DriverManager.getConnection(connectionURL, "root", "");
+		        statement = connection.createStatement();
+		        rs = statement.executeQuery("SELECT * FROM usuario WHERE Email = '" + email + "' AND Senha = '" + senha + "'");
+		        while (rs.next()) {
+                    resultado[0] = rs.getString("Codigo");
+                    resultado[1] = rs.getString("PrimeiroNome");
+                    resultado[2] = rs.getString("UltimoNome");
+                    resultado[3] = rs.getString("Email");
+                    resultado[4] = rs.getString("Saldo");
+                    resultado[5] = rs.getString("Senha");
+                }
+				connection.close();
+				
+		   } catch (Exception e) {
+			        resultado[0] = e.toString();
+			       
+		   }
+	    
+	    return resultado;
+	}
+	
+	
+	public int delete(int valor1, int valor2) {
+		return valor1 + valor2;
+	} 
+	
+	public int edit(int valor1, int valor2) {
+		return valor1 + valor2;
+	} 	
+	
+	public int list(int valor1, int valor2) {
+	     
+		return valor1 + valor2;
+	}
+	
+		
+}
