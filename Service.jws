@@ -10,7 +10,6 @@ public class Service {
     Connection connection = null;
 	Statement statement = null;
 	ResultSet rs = null;
-	
 	public String insertUser(String PrimeiroNome, String UltimoNome, String Email, String Senha, String Telefone) {
        int rset = 0;
        String resultado = null;
