@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, AppActivity!</string>
+    <string name="app_name">App</string>
+    <string name="bemvindo1">Olá, insira seus dados para conectar-se.</string>
+    <string name="conectar_btn">Conectar</string>
+    <string name="cadastrar_btn">Cadastrar</string>
+    <string name="cadastrar_help1">Preencha as lacunas com seus dados. \n Todos os dados são obrigatórios</string>
+    <string name="cadastrar_primeiro_nome">Primeiro nome</string>
+    <string name="cadastrar_ultimo_nome">Último nome</string>
+    <string name="cadastrar_email">E-mail</string>
+    <string name="cadastrar_email_confirmar">Digite seu E-mail novamente</string>
+    <string name="cadastrar_senha">Senha</string>
+    <string name="cadastrar_confirmar_senha">Digite sua senha novamente</string>
+    <string name="cadastrar_enviar">Enviar solicitação</string>
+    <string name="conectar_usuario">E-mail</string>
+    <string name="conectar_senha">Senha</string>
+</resources>

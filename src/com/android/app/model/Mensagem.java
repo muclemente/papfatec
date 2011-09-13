@@ -1,0 +1,47 @@
+package com.android.app.model;
+
+import java.io.Serializable;
+
+public class Mensagem implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9056090859026952976L;
+	private int Codigo, CodigoEvento, CodigoUsuario;
+	private String Conteudo;
+	
+	public Mensagem(int codigo, int codigoEvento, int codigoUsuario, String conteudo) {
+		Codigo = codigo;
+		CodigoEvento = codigoEvento;
+		CodigoUsuario = codigoUsuario;
+		Conteudo = conteudo;
+	}
+	
+	public Mensagem(int codigoEvento, int codigoUsuario, String conteudo) {
+		CodigoEvento = codigoEvento;
+		CodigoUsuario = codigoUsuario;
+		Conteudo = conteudo;
+	}
+
+	public String getConteudo() {
+		return Conteudo;
+	}
+
+	public void setConteudo(String conteudo) {
+		Conteudo = conteudo;
+	}
+
+	public int getCodigo() {
+		return Codigo;
+	}
+
+	public int getCodigoEvento() {
+		return CodigoEvento;
+	}
+
+	public int getCodigoUsuario() {
+		return CodigoUsuario;
+	}
+	
+	
+}

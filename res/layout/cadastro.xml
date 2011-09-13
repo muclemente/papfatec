@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
+
+	<LinearLayout
+	  android:id="@+id/menu_cadastrar"
+	  android:orientation="vertical"
+	  android:layout_width="fill_parent"
+	  android:layout_height="fill_parent">
+	    
+	  <TextView 
+	  		android:text="@string/cadastrar_help1"
+	  		android:layout_width="fill_parent" 
+	    	android:layout_height="wrap_content"
+	    	android:gravity="center"
+	    	android:textSize="18sp"
+	  />  
+	  <TextView 
+	  		android:text="@string/cadastrar_primeiro_nome"
+	  		android:layout_width="wrap_content" 
+	    	android:layout_height="wrap_content"
+	    	android:textSize="18sp"
+	  />  
+	  <EditText  
+			android:layout_marginTop="4dp"
+	    	android:layout_width="fill_parent" 
+	    	android:layout_height="wrap_content"
+	    	android:id="@+edt/cadastro_usuario_primeiro_nome">
+	  </EditText>
+	  <TextView 
+	  		android:text="@string/cadastrar_ultimo_nome"
+	  		android:layout_width="wrap_content" 
+	    	android:layout_height="wrap_content"
+	    	android:textSize="18sp"
+	  />  
+	  <EditText  
+			android:layout_marginTop="4dp"
+	    	android:layout_width="fill_parent" 
+	    	android:layout_height="wrap_content"
+	    	android:id="@+edt/cadastro_usuario_ultimo_nome">
+	  </EditText>
+	  <TextView 
+	  		android:text="@string/cadastrar_email"
+	  		android:layout_width="wrap_content" 
+	    	android:layout_height="wrap_content"
+	    	android:textSize="18sp"
+	  />  
+	  <EditText  
+	  		android:inputType="textEmailAddress"
+			android:layout_marginTop="4dp"
+	    	android:layout_width="fill_parent" 
+	    	android:layout_height="wrap_content"
+	    	android:id="@+edt/cadastro_usuario_email">
+	  </EditText>
+	  <TextView 
+	  		android:text="@string/cadastrar_senha"
+	  		android:layout_width="wrap_content" 
+	    	android:layout_height="wrap_content"
+	    	android:textSize="18sp"
+	  />  
+	  <EditText 
+	  		android:password="true" 
+			android:layout_marginTop="4dp"
+	    	android:layout_width="fill_parent" 
+	    	android:layout_height="wrap_content"
+	    	android:id="@+edt/cadastro_usuario_senha">
+	  </EditText>
+	  <Button 
+	  		android:layout_marginTop="15dp"
+			android:text="@string/cadastrar_enviar" 
+			android:id="@+btn/cadastro_enviar" 
+			android:layout_gravity="center"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content">
+		</Button>  
+	</LinearLayout>
+			
+			
+			
+			
+</ScrollView>
