@@ -1,12 +1,7 @@
 package com.android.app.model;
 
-import java.io.Serializable;
 
-public class Participacao implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4322630279440520879L;
+public class Participacao{
 	private int CodigoUsuario, CodigoEvento;
 	private boolean Pago;
 	

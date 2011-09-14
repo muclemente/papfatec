@@ -1,9 +1,6 @@
 package com.android.app.command;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
-import java.net.SocketAddress;
 import java.util.ArrayList;
 
 import org.ksoap2.SoapEnvelope;
@@ -19,8 +16,6 @@ import android.content.DialogInterface;
 public class Command {
 	private ArrayList<Object []> params = new ArrayList<Object []>();
 	private Object [] result = new Object[3];
-	
-	private ArrayList<String> resultado = new ArrayList<String>();
 	
 	private int object = 0, msg = 1, isboolean = 2;
 	private int pTitle = 0, pValue = 1;
@@ -56,12 +51,12 @@ public class Command {
 	}
 	
 	public Object getResult_Obejct (){
-		return result[object];
+		if(result[object] != null)
+			return result[object];
+		else
+			return new String("conexao");
 	}	
 	
-	public ArrayList<String> teste1() {
-		return resultado;
-	}
 	
 	public Object [] callWebService(String ip,String action){
 		String url = "http://"+ip+":8080/axis/Service.jws";
@@ -80,7 +75,6 @@ public class Command {
         
 			ht.call("Service", envelope);
 			result[object] = envelope.getResponse();
-
 			
 			result[msg] = "Operação Realizada com Sucesso.";
 		} catch (IOException e) {

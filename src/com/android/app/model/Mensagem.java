@@ -1,12 +1,7 @@
 package com.android.app.model;
 
-import java.io.Serializable;
 
-public class Mensagem implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 9056090859026952976L;
+public class Mensagem {
 	private int Codigo, CodigoEvento, CodigoUsuario;
 	private String Conteudo;
 	

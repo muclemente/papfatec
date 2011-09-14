@@ -13,9 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.app.command.Command;
+import com.android.app.model.Usuario;
 
 public class AppActivity extends Activity implements OnClickListener {
 	private Command com = new Command();
+	Usuario logon;
+	
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -61,15 +64,33 @@ public class AppActivity extends Activity implements OnClickListener {
 			com.clearParams();
 			com.setParams("Usuario", strUsuario);
 			com.setParams("Senha", strSenha);
-			Object resultado[];
-			resultado = com.callWebService("192.168.42.215", "login");
-			/*if(resultado[0].equals("null")) {
+			
+			com.callWebService("192.168.42.19", "login");
+			String lineResult = com.getResult_Obejct().toString();
+			lineResult = lineResult.substring(1, lineResult.length()-1);
+			String[] resultado = lineResult.split(", ");
+			
+			//0 = Codigo, 1 = PrimeiroNome, 2, = UltimoNome, 3 = Email, 4 = Saldo, 5 = Senha 
+			if(resultado[0].equals("null")) {
 				statusMsg = "E-mail ou senha incorretos.";
+			} else if(resultado[0].equals("conexao")) {
+				statusMsg = "Falha na conexão.";
 			} else {
-				statusMsg = "Conectado!";
+				statusMsg = "Operação concluída!";
+				//Converte e cria uma instância do usuário online
+				logon = new Usuario(Integer.parseInt(resultado[0]),
+						resultado[1], 
+						resultado[2],
+						resultado[3],
+						resultado[5],
+						Float.parseFloat(resultado[4])
+						);
 			}
-			*/
-			dialog.setMessage(com.getResult_Msg().toString());
+			
+			dialog.setMessage(statusMsg);
+			
+			
+			
 			
 			
 		} else if(botao.getId() == R.btn.cadastro) {

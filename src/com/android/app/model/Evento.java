@@ -1,13 +1,8 @@
 package com.android.app.model;
 
-import java.io.Serializable;
 
-public class Evento implements Serializable{
+public class Evento {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8240424837889357901L;
 	private int Codigo, CodigoUsuario, CEP;
 	private String Titulo, Data, Descricao, Endereco,
 					Bairro, Numero, Cidade, Estado;

@@ -1,12 +1,8 @@
 package com.android.app.model;
 
-import java.io.Serializable;
 
-public class Usuario implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -401603698374845308L;
+public class Usuario {
+	boolean online;
 	int id;
 	String primeiroNome, ultimoNome, email, senha;
 	float saldo;
@@ -15,6 +11,14 @@ public class Usuario implements Serializable{
 		return primeiroNome;
 	}
 
+	public boolean isOnline() {
+		return online;
+	}
+	
+	public void setOnline(boolean value) {
+		online = value;
+	}
+	
 	public void setPrimeiroNome(String primeiroNome) {
 		this.primeiroNome = primeiroNome;
 	}
@@ -63,6 +67,7 @@ public class Usuario implements Serializable{
 		this.email = email;
 		this.senha = password;
 		this.saldo = balance;
+		this.online = true;
 	}
 	
 	public Usuario(String firsName, String lastName, String email,
@@ -71,6 +76,7 @@ public class Usuario implements Serializable{
 		this.ultimoNome = lastName;
 		this.email = email;
 		this.senha = password;
+		this.online = true;
 	}
 
 	

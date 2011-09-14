@@ -21,6 +21,10 @@ public class CadastroActivity extends Activity implements OnClickListener {
 	private Command com = new Command();
 	Usuario user;
 	public static boolean DEBUG = true;
+	EditText primeiroNome;
+	EditText ultimoNome;
+	EditText email;
+	EditText senha;
 	
 	
 	@Override
@@ -36,10 +40,10 @@ public class CadastroActivity extends Activity implements OnClickListener {
 	public void onClick(View botao) {
 		com.clearParams();
 		//Cria instâncias dos inputs e busca seus conteúdos pelas suas IDs em /gen/R/edt
-		EditText primeiroNome = (EditText) findViewById(R.edt.cadastro_usuario_primeiro_nome);
-		EditText ultimoNome = (EditText) findViewById(R.edt.cadastro_usuario_ultimo_nome);
-		EditText email = (EditText) findViewById(R.edt.cadastro_usuario_email);
-		EditText senha = (EditText) findViewById(R.edt.cadastro_usuario_senha);
+		primeiroNome = (EditText) findViewById(R.edt.cadastro_usuario_primeiro_nome);
+		ultimoNome = (EditText) findViewById(R.edt.cadastro_usuario_ultimo_nome);
+		email = (EditText) findViewById(R.edt.cadastro_usuario_email);
+		senha = (EditText) findViewById(R.edt.cadastro_usuario_senha);
 		//Converte os valores dentro dos inputs para texto
 		String prNome = primeiroNome.getText().toString();
 		String ulNome = ultimoNome.getText().toString();
@@ -77,7 +81,7 @@ public class CadastroActivity extends Activity implements OnClickListener {
 		com.setParams("Telefone", numTelefone);
 		
 		//Faz a chamada para o Service.wjs
-		Object resultado = com.callWebService("192.168.42.215", "insertUser");
+		Object resultado = com.callWebService("192.168.42.19", "insertUser");
 		String statusMsg = null;
 		
 		//Captura e analisa o resultado
@@ -90,7 +94,7 @@ public class CadastroActivity extends Activity implements OnClickListener {
 		showDialog(botao.getContext(), statusMsg).show();
 		
 		//Finaliza esta atividade e volta para a tela principal
-		finish();
+		//finish();
 	}
 	
 	public AlertDialog showDialog(Context screen, String msg) {
