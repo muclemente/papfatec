@@ -3,19 +3,22 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background">
+    android:background="@drawable/background_login">
 	
 	<TextView  
+		android:layout_marginTop="115dp"
     	android:layout_width="fill_parent" 
     	android:layout_height="wrap_content" 
     	android:text="@string/bemvindo1"
     	android:textSize="20sp"
     	android:gravity="center"
+    	android:textColor="#fafafa"
     	android:paddingBottom="10dp">
     </TextView>
     
     
     <TextView  
+    	android:textColor="#fafafa"
     	android:layout_width="fill_parent" 
     	android:layout_height="wrap_content" 
     	android:text="@string/conectar_usuario"
@@ -29,6 +32,7 @@
     	android:id="@+edt/conectar_usuario">
     </EditText>
     <TextView  
+    	android:textColor="#fafafa"
     	android:layout_width="fill_parent" 
     	android:layout_height="wrap_content" 
     	android:text="@string/conectar_senha"

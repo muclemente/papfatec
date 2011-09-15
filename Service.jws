@@ -1,3 +1,4 @@
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,9 +18,15 @@ public class Service {
 			    Class.forName("com.mysql.jdbc.Driver").newInstance();
 		        connection = DriverManager.getConnection(connectionURL, "root", "");
 		        statement = connection.createStatement();
-		        rset = statement.executeUpdate("INSERT INTO usuario(PrimeiroNome, UltimoNome, Email, Saldo, Senha, Telefone) VALUES('" + PrimeiroNome +"', '" + UltimoNome + "', '" + Email + "', 0, '" + Senha + "', '" + Telefone + "')");
+		        rs = statement.executeQuery("SELECT Codigo FROM usuario WHERE Email = '" + Email + "'");
+		        if(rs.next()) {
+		            resultado = "existe";
+		        } else {   
+		            rset = statement.executeUpdate("INSERT INTO usuario(PrimeiroNome, UltimoNome, Email, Saldo, Senha, Telefone) VALUES('" + PrimeiroNome +"', '" + UltimoNome + "', '" + Email + "', 0, '" + Senha + "', '" + Telefone + "')");
+		            resultado = "sucesso";
+		        }
 				connection.close();
-				resultado = "sucesso";
+				
 		   } catch (Exception e) {
 			       resultado = e.toString();
 		   }

@@ -16,12 +16,14 @@
 	    	android:layout_height="wrap_content"
 	    	android:gravity="center"
 	    	android:textSize="18sp"
+	    	android:textColor="#4f5180"
 	  />  
 	  <TextView 
 	  		android:text="@string/cadastrar_primeiro_nome"
 	  		android:layout_width="wrap_content" 
 	    	android:layout_height="wrap_content"
 	    	android:textSize="18sp"
+	    	android:textColor="#4f5180"
 	  />  
 	  <EditText  
 			android:layout_marginTop="4dp"
@@ -34,6 +36,7 @@
 	  		android:layout_width="wrap_content" 
 	    	android:layout_height="wrap_content"
 	    	android:textSize="18sp"
+	    	android:textColor="#4f5180"
 	  />  
 	  <EditText  
 			android:layout_marginTop="4dp"
@@ -46,6 +49,7 @@
 	  		android:layout_width="wrap_content" 
 	    	android:layout_height="wrap_content"
 	    	android:textSize="18sp"
+	    	android:textColor="#4f5180"
 	  />  
 	  <EditText  
 	  		android:inputType="textEmailAddress"
@@ -59,6 +63,7 @@
 	  		android:layout_width="wrap_content" 
 	    	android:layout_height="wrap_content"
 	    	android:textSize="18sp"
+	    	android:textColor="#4f5180"
 	  />  
 	  <EditText 
 	  		android:password="true" 

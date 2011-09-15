@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,10 +17,10 @@ import android.widget.EditText;
 import com.android.app.command.Command;
 import com.android.app.model.Usuario;
 
-public class AppActivity extends Activity implements OnClickListener {
+public class AppActivity extends Activity implements OnClickListener, OnDismissListener {
 	private Command com = new Command();
 	Usuario logon;
-	
+	Boolean sucesso;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -59,13 +61,14 @@ public class AppActivity extends Activity implements OnClickListener {
 		    
 		    
 			AlertDialog dialog = com.showDialog(botao.getContext(), statusMsg);
+			dialog.setOnDismissListener(this);
 			dialog.show();
 			
 			com.clearParams();
 			com.setParams("Usuario", strUsuario);
 			com.setParams("Senha", strSenha);
 			
-			com.callWebService("192.168.42.19", "login");
+			com.callWebService(this.getString(R.string.ip), "login");
 			String lineResult = com.getResult_Obejct().toString();
 			lineResult = lineResult.substring(1, lineResult.length()-1);
 			String[] resultado = lineResult.split(", ");
@@ -73,10 +76,12 @@ public class AppActivity extends Activity implements OnClickListener {
 			//0 = Codigo, 1 = PrimeiroNome, 2, = UltimoNome, 3 = Email, 4 = Saldo, 5 = Senha 
 			if(resultado[0].equals("null")) {
 				statusMsg = "E-mail ou senha incorretos.";
+				sucesso = false;
 			} else if(resultado[0].equals("conexao")) {
 				statusMsg = "Falha na conexão.";
+				sucesso = false;
 			} else {
-				statusMsg = "Operação concluída!";
+				statusMsg = "Conectado com sucesso.";
 				//Converte e cria uma instância do usuário online
 				logon = new Usuario(Integer.parseInt(resultado[0]),
 						resultado[1], 
@@ -85,17 +90,23 @@ public class AppActivity extends Activity implements OnClickListener {
 						resultado[5],
 						Float.parseFloat(resultado[4])
 						);
+				sucesso = true;
 			}
-			
 			dialog.setMessage(statusMsg);
-			
-			
-			
-			
+
 			
 		} else if(botao.getId() == R.btn.cadastro) {
 			Intent i = new Intent(AppActivity.this, CadastroActivity.class);
 			startActivity(i);
 		}
+	}
+
+	@Override
+	public void onDismiss(DialogInterface dialog) {
+		if(sucesso) {
+			Intent i = new Intent(AppActivity.this, Dashboard.class);
+			startActivity(i);
+		}
+		
 	}
 }

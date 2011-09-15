@@ -34,6 +34,8 @@ public class CadastroActivity extends Activity implements OnClickListener {
 		
 		Button btnEnviar = (Button) findViewById(R.btn.cadastro_enviar);
 		btnEnviar.setOnClickListener(this);
+		email = (EditText) findViewById(R.edt.cadastro_usuario_email);
+		email.setText("muclemente@gmail.com");
 	}
 
 	@Override
@@ -81,14 +83,23 @@ public class CadastroActivity extends Activity implements OnClickListener {
 		com.setParams("Telefone", numTelefone);
 		
 		//Faz a chamada para o Service.wjs
-		Object resultado = com.callWebService("192.168.42.19", "insertUser");
+		Object resultado[] = com.callWebService(this.getString(R.string.ip), "insertUser");
 		String statusMsg = null;
 		
 		//Captura e analisa o resultado
-		if(!resultado.equals("sucesso")) {
+		if(!DEBUG) {
+			statusMsg = com.getResult_Msg();
 		} else {
-			statusMsg = "Operação concluída.";
+			if(resultado[0].equals("existe")) {
+				statusMsg = "Já existe um cadastro com este e-mail.";
+			} else if(!resultado[0].equals("sucesso")) {
+				statusMsg = "Não foi possível cadastrar.";
+			} else {
+				statusMsg = "Operação concluída.";
+			}
 		}
+		
+		
 		
 		//Exibe o resultado
 		showDialog(botao.getContext(), statusMsg).show();

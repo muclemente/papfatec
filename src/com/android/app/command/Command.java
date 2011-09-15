@@ -54,12 +54,12 @@ public class Command {
 		if(result[object] != null)
 			return result[object];
 		else
-			return new String("conexao");
+			return new String("[conexao]");
 	}	
 	
 	
 	public Object [] callWebService(String ip,String action){
-		String url = "http://"+ip+":8080/axis/Service.jws";
+		String url = "http://"+ip+":8080/axis/handlers/Service.jws";
 				
 		try {
         	SoapObject request = new SoapObject(url, action);

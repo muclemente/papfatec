@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="ip">192.168.1.4</string>
     <string name="hello">Hello World, AppActivity!</string>
     <string name="app_name">App</string>
     <string name="bemvindo1">Olá, insira seus dados para conectar-se.</string>
@@ -15,4 +16,5 @@
     <string name="cadastrar_enviar">Enviar solicitação</string>
     <string name="conectar_usuario">E-mail</string>
     <string name="conectar_senha">Senha</string>
+    <string name="dash_label">Menu</string>
 </resources>
