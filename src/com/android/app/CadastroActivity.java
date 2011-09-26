@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -14,11 +13,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.android.app.command.Command;
+import com.android.app.command.Cadastro;
 import com.android.app.model.Usuario;
 
 public class CadastroActivity extends Activity implements OnClickListener {
-	private Command com = new Command();
+	private Cadastro cadastro = new Cadastro();
 	Usuario user;
 	public static boolean DEBUG = true;
 	EditText primeiroNome;
@@ -40,7 +39,7 @@ public class CadastroActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View botao) {
-		com.clearParams();
+		cadastro.clearParams();
 		//Cria instâncias dos inputs e busca seus conteúdos pelas suas IDs em /gen/R/edt
 		primeiroNome = (EditText) findViewById(R.edt.cadastro_usuario_primeiro_nome);
 		ultimoNome = (EditText) findViewById(R.edt.cadastro_usuario_ultimo_nome);
@@ -57,16 +56,16 @@ public class CadastroActivity extends Activity implements OnClickListener {
 	      Matcher m = p.matcher(strEmail);  
 	      boolean matchFound = m.matches();  
 		if(prNome.equals("")) {
-			showDialog(botao.getContext(), "O primeiro nome não pode estar vazio.").show();
+			Utilidades.makeDialog(botao.getContext(), "O primeiro nome não pode estar vazio.").show();
 			return;
 		} else if(ulNome.equals("")) {
-			showDialog(botao.getContext(), "O último nome não pode estar vazio.").show();
+			Utilidades.makeDialog(botao.getContext(), "O último nome não pode estar vazio.").show();
 			return;
 		} else if(!matchFound) {
-			showDialog(botao.getContext(), "Você deve inserir um e-mail válido.").show();
+			Utilidades.makeDialog(botao.getContext(), "Você deve inserir um e-mail válido.").show();
 			return;
 		} else if(strSenha.length() < 6) {
-			showDialog(botao.getContext(), "Sua senha deve conter 6 ou mais caracteres.").show();
+			Utilidades.makeDialog(botao.getContext(), "Sua senha deve conter 6 ou mais caracteres.").show();
 			return;
 		}
 		
@@ -76,49 +75,19 @@ public class CadastroActivity extends Activity implements OnClickListener {
 		String numTelefone = tMgr.getLine1Number();
 		
 		//Insere os parâmetros no envelope do SOAP
-		com.setParams("PrimeiroNome", prNome);
-		com.setParams("UltimoNome", ulNome);
-		com.setParams("Email", strEmail);
-		com.setParams("Senha", strSenha);
-		com.setParams("Telefone", numTelefone);
+		cadastro.setParams("PrimeiroNome", prNome);
+		cadastro.setParams("UltimoNome", ulNome);
+		cadastro.setParams("Email", strEmail);
+		cadastro.setParams("Senha", strSenha);
+		cadastro.setParams("Telefone", numTelefone);
 		
 		//Faz a chamada para o Service.wjs
-		Object resultado[] = com.callWebService(this.getString(R.string.ip), "insertUser");
-		String statusMsg = null;
-		
-		//Captura e analisa o resultado
-		if(!DEBUG) {
-			statusMsg = com.getResult_Msg();
-		} else {
-			if(resultado[0].equals("existe")) {
-				statusMsg = "Já existe um cadastro com este e-mail.";
-			} else if(!resultado[0].equals("sucesso")) {
-				statusMsg = "Não foi possível cadastrar.";
-			} else {
-				statusMsg = "Operação concluída.";
-			}
-		}
-		
-		
-		
+		cadastro.callWebService(this.getString(R.string.ip), "insertUser");
+	
 		//Exibe o resultado
-		showDialog(botao.getContext(), statusMsg).show();
-		
+		Utilidades.makeDialog(this, cadastro.getMensagem()).show();
 		//Finaliza esta atividade e volta para a tela principal
 		//finish();
-	}
-	
-	public AlertDialog showDialog(Context screen, String msg) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(screen);
-		builder.setMessage(msg)
-			.setCancelable(false)
-			.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int id) {
-					dialog.cancel();
-	            }
-			});
-		AlertDialog alert = builder.create();
-		return (alert);
 	}
 	
 }

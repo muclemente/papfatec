@@ -1,5 +1,6 @@
 package com.android.app;
 
+import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,13 +15,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.android.app.command.Command;
+import com.android.app.command.Login;
 import com.android.app.model.Usuario;
 
 public class AppActivity extends Activity implements OnClickListener, OnDismissListener {
-	private Command com = new Command();
-	Usuario logon;
-	Boolean sucesso;
+	private Login login = new Login();
+	Usuario autenticado;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -42,8 +42,6 @@ public class AppActivity extends Activity implements OnClickListener, OnDismissL
 	@Override
 	public void onClick(View botao) {
 		if(botao.getId() == R.btn.connect) {
-
-
 			EditText boxUsuario = (EditText) findViewById(R.edt.conectar_usuario);
 			EditText boxSenha = (EditText) findViewById(R.edt.conectar_senha);
 			String strUsuario = boxUsuario.getText().toString();
@@ -59,41 +57,27 @@ public class AppActivity extends Activity implements OnClickListener, OnDismissL
 				statusMsg = "Conectando...";
 			}
 		    
-		    
-			AlertDialog dialog = com.showDialog(botao.getContext(), statusMsg);
+			AlertDialog dialog = Utilidades.makeDialog(botao.getContext(), statusMsg);
 			dialog.setOnDismissListener(this);
 			dialog.show();
 			
-			com.clearParams();
-			com.setParams("Usuario", strUsuario);
-			com.setParams("Senha", strSenha);
+			login.clearParams();
+			login.setParams("Usuario", strUsuario);
+			login.setParams("Senha", strSenha);
+			login.callWebService(this.getString(R.string.ip), "login");
 			
-			com.callWebService(this.getString(R.string.ip), "login");
-			String lineResult = com.getResult_Obejct().toString();
-			lineResult = lineResult.substring(1, lineResult.length()-1);
-			String[] resultado = lineResult.split(", ");
+			LinkedHashMap<String, Object> resultado = login.getResultado();
 			
-			//0 = Codigo, 1 = PrimeiroNome, 2, = UltimoNome, 3 = Email, 4 = Saldo, 5 = Senha 
-			if(resultado[0].equals("null")) {
-				statusMsg = "E-mail ou senha incorretos.";
-				sucesso = false;
-			} else if(resultado[0].equals("conexao")) {
-				statusMsg = "Falha na conexão.";
-				sucesso = false;
-			} else {
-				statusMsg = "Conectado com sucesso.";
-				//Converte e cria uma instância do usuário online
-				logon = new Usuario(Integer.parseInt(resultado[0]),
-						resultado[1], 
-						resultado[2],
-						resultado[3],
-						resultado[5],
-						Float.parseFloat(resultado[4])
-						);
-				sucesso = true;
-			}
-			dialog.setMessage(statusMsg);
-
+			autenticado = new Usuario(
+					(Integer)resultado.get("Codigo"),
+					(String)resultado.get("PrimeiroNome"),
+					(String)resultado.get("UltimoNome"),
+					(String)resultado.get("Email"),
+					(String)resultado.get("Senha"),
+					(Float)resultado.get("Saldo")
+					);
+			
+			dialog.setMessage(login.getMensagem());
 			
 		} else if(botao.getId() == R.btn.cadastro) {
 			Intent i = new Intent(AppActivity.this, CadastroActivity.class);
@@ -103,10 +87,10 @@ public class AppActivity extends Activity implements OnClickListener, OnDismissL
 
 	@Override
 	public void onDismiss(DialogInterface dialog) {
-		if(sucesso) {
+		if(login.Conclusao) {
 			Intent i = new Intent(AppActivity.this, Dashboard.class);
 			startActivity(i);
-		}
+		}	
 		
 	}
 }

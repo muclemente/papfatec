@@ -52,15 +52,17 @@
 		android:text="Conectar" 
 		android:id="@+btn/connect" 
 		android:layout_width="wrap_content" 
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:layout_weight="0">
 	</Button>  
-    
     
     <Button
     	android:layout_gravity="center"
     	android:text="@string/cadastrar_btn"
     	android:id="@+btn/cadastro"
-    	android:layout_height="wrap_content" android:layout_width="120dp">
+    	android:layout_height="wrap_content"
+    	android:layout_width="wrap_content"
+    	android:layout_weight="0">
     </Button>
     
 	  
